@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DS · Briefing Estratégico</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--black:#0A0A0A;--dark:#1A1A1A;--gray:#8C8C8C;--line:#E6E6E6;--soft:#F6F6F6;--white:#fff;--ok:#0f7a3b;--err:#b42318}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#c8c8c8;color:var(--dark)}
+.login{min-height:100vh;background:var(--black);display:grid;place-items:center;padding:24px;color:#fff}.login-card{width:min(520px,100%);border:1px solid #262626;padding:38px;background:#0f0f0f}
+.kicker{font-family:monospace;font-size:10px;color:var(--gray);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}.login h1,.side-title,.top h1{font-family:Georgia,serif;line-height:1.05}.login h1{font-size:44px;margin-bottom:14px}.login h1 em,.side-title em{color:var(--gray)}
+.login p{color:var(--gray);font-size:14px;line-height:1.6;margin-bottom:22px}.login label{font-size:12px;font-weight:700;margin-bottom:8px;display:block}.login input{width:100%;padding:14px;border:0;font-size:15px}
+.login-actions{display:flex;gap:10px;margin-top:14px}.error{display:none;color:#ffb4ab;font-size:12px;margin-top:12px}
+.app{display:none;width:min(1120px,calc(100% - 32px));margin:32px auto;background:#fff;min-height:calc(100vh - 64px);grid-template-columns:310px 1fr;box-shadow:0 24px 80px rgba(0,0,0,.18)}
+aside{background:var(--black);color:#fff;padding:40px 32px;position:sticky;top:0;height:100vh;overflow:auto}.brand{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #242424;padding-bottom:26px;margin-bottom:40px}.logo{font-family:Georgia,serif;font-size:34px}.ref{font-family:monospace;font-size:10px;color:var(--gray);text-align:right;line-height:1.6}
+.side-title{font-size:36px;margin-bottom:18px}.side-desc{color:var(--gray);font-size:13px;line-height:1.6}.progress{margin:28px 0}.progress-top{display:flex;justify-content:space-between;font-family:monospace;font-size:10px;color:var(--gray);margin-bottom:8px}.bar{height:6px;background:#242424}.fill{height:100%;width:0;background:#fff;transition:.2s}
+.tabs{display:flex;flex-direction:column;gap:6px}.tab{border:1px solid #242424;background:transparent;color:var(--gray);text-align:left;padding:12px;display:grid;grid-template-columns:32px 1fr;gap:8px;cursor:pointer}.tab.active{background:#fff;color:#000;border-color:#fff}.tab.done:not(.active){color:#fff}.tab span:first-child{font-family:monospace;font-size:10px}
+main{padding:44px 56px 32px}.top{display:flex;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:30px}.top h1{font-size:34px}.top p{margin-top:10px;color:#555;font-size:14px;line-height:1.6;max-width:640px}.status{min-width:240px;background:var(--soft);border:1px solid var(--line);padding:14px;font-size:12px;color:#555}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gray);margin-right:7px}.dot.ok{background:var(--ok)}.dot.err{background:var(--err)}
+.step{display:none}.step.active{display:block}.section-head{background:#0A0A0A;color:#fff;padding:14px 16px;display:flex;gap:12px;align-items:center;margin-bottom:18px}.section-head span{font-family:monospace;font-size:10px;color:var(--gray)}.section-head h2{font-size:11px;text-transform:uppercase;letter-spacing:2px}.explain{background:var(--soft);border-left:3px solid #000;padding:16px;margin-bottom:24px;color:#555;font-size:13px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.field{margin-bottom:18px}.full{grid-column:1/-1}label{display:block;font-size:12px;font-weight:700;margin-bottom:8px}input,textarea,select{width:100%;border:1px solid #D9D9D9;padding:12px;font:inherit;font-size:14px;outline:none}textarea{min-height:92px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:#000;box-shadow:0 0 0 3px rgba(0,0,0,.08)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:var(--soft);border:1px solid var(--line);padding:16px}.card h3{font-family:Georgia,serif;font-size:19px;margin-bottom:12px}.pills{display:flex;flex-wrap:wrap;gap:8px}.pill{border:1px solid #D9D9D9;padding:8px 12px;font-size:12px;cursor:pointer}.pill input{display:none}.pill:has(input:checked){background:#000;color:#fff;border-color:#000}
+.actions{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:24px;margin-top:28px}button{border:1px solid #000;background:#000;color:#fff;padding:12px 20px;font-weight:700;cursor:pointer}button.secondary{background:#fff;color:#000}button.ghost{background:transparent;color:#555;border-color:#ccc}.toast{position:fixed;right:24px;bottom:24px;background:#000;color:#fff;padding:12px 16px;font-size:12px;opacity:0;transform:translateY(8px);transition:.2s}.toast.show{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.app{grid-template-columns:1fr;width:100%;margin:0}aside{position:relative;height:auto}.top{flex-direction:column}.grid,.cards{grid-template-columns:1fr}main{padding:28px 22px}}
+</style>
+</head>
+<body>
+<div id="login" class="login">
+  <div class="login-card">
+    <div class="kicker">Acceso privado</div>
+    <h1>Briefing<br><em>estratégico</em></h1>
+    <p>Introduce tu código de acceso. Puedes completar el formulario poco a poco; todo se guarda automáticamente.</p>
+    <label>Código de acceso</label>
+    <input id="codeInput" placeholder="Ej. KOOB-2026" autocomplete="off">
+    <div class="login-actions">
+      <button id="loginBtn">Acceder</button>
+      <button id="localBtn" class="secondary" type="button">Modo local</button>
+    </div>
+    <div id="loginError" class="error">Código no encontrado o error de conexión.</div>
+  </div>
+</div>
+
+<div id="app" class="app">
+<aside>
+  <div class="brand"><div class="logo">DS</div><div class="ref">Briefing<br>SEO · GEO<br>Web</div></div>
+  <div class="kicker">Experiencia estratégica</div>
+  <div class="side-title">Briefing<br><em>Premium</em></div>
+  <p class="side-desc">Completa cada paso con calma. Las respuestas se guardan automáticamente.</p>
+  <div class="progress"><div class="progress-top"><span>PROGRESO</span><span id="progressText">0%</span></div><div class="bar"><div id="fill" class="fill"></div></div></div>
+  <div id="tabs" class="tabs"></div>
+</aside>
+
+<main>
+  <div class="top">
+    <div><h1>Briefing Estratégico</h1><p>SEO, GEO, diseño web y conversión. Este formulario nos ayuda a entender el negocio con precisión.</p></div>
+    <div class="status"><strong><span id="dot" class="dot"></span><span id="statusText">Conectando…</span></strong><br>Cliente: <span id="clientName">—</span><br>Código: <span id="clientCode">—</span><br>Última actualización: <span id="lastSaved">—</span></div>
+  </div>
+
+  <form id="form">
+    <section class="step active" data-title="Marca"><div class="section-head"><span>01</span><h2>Posicionamiento y marca</h2></div><div class="explain">Entender quién eres, qué vendes y cómo deberías percibirte.</div><div class="grid">
+      <div class="field"><label>Nombre empresa</label><input name="empresa"></div><div class="field"><label>Sector / especialidad</label><input name="sector"></div>
+      <div class="field full"><label>Problema principal que resolvéis</label><textarea name="problema_principal"></textarea></div>
+      <div class="field full"><label>Diferenciación real</label><textarea name="diferenciacion"></textarea></div>
+      <div class="field full"><label>Por qué deberían elegiros</label><textarea name="por_que_elegir"></textarea></div>
+      <div class="field"><label>Percepción actual</label><textarea name="percepcion_actual"></textarea></div><div class="field"><label>Percepción deseada</label><textarea name="percepcion_deseada"></textarea></div>
+      <div class="field full"><label>Mensaje clave de la web</label><textarea name="mensaje_clave"></textarea></div></div></section>
+
+    <section class="step" data-title="Servicios"><div class="section-head"><span>02</span><h2>Servicios y prioridad comercial</h2></div><div class="explain">Definir qué servicios debemos potenciar para generar negocio.</div><div class="cards">
+      <div class="card"><h3>Servicio 1</h3><div class="field"><label>Nombre</label><input name="servicio1_nombre"></div><div class="field"><label>Prioridad</label><select name="servicio1_prioridad"><option></option><option>Alta</option><option>Media</option><option>Baja</option></select></div><div class="field"><label>Rentabilidad</label><select name="servicio1_rentabilidad"><option></option><option>Alta</option><option>Media</option><option>Baja</option></select></div><div class="field"><label>Cliente ideal</label><textarea name="servicio1_cliente"></textarea></div><div class="field"><label>Problema</label><textarea name="servicio1_problema"></textarea></div></div>
+      <div class="card"><h3>Servicio 2</h3><div class="field"><label>Nombre</label><input name="servicio2_nombre"></div><div class="field"><label>Prioridad</label><select name="servicio2_prioridad"><option></option><option>Alta</option><option>Media</option><option>Baja</option></select></div><div class="field"><label>Rentabilidad</label><select name="servicio2_rentabilidad"><option></option><option>Alta</option><option>Media</option><option>Baja</option></select></div><div class="field"><label>Cliente ideal</label><textarea name="servicio2_cliente"></textarea></div><div class="field"><label>Problema</label><textarea name="servicio2_problema"></textarea></div></div>
+      <div class="card"><h3>Servicio 3</h3><div class="field"><label>Nombre</label><input name="servicio3_nombre"></div><div class="field"><label>Prioridad</label><select name="servicio3_prioridad"><option></option><option>Alta</option><option>Media</option><option>Baja</option></select></div><div class="field"><label>Rentabilidad</label><select name="servicio3_rentabilidad"><option></option><option>Alta</option><option>Media</option><option>Baja</option></select></div><div class="field"><label>Cliente ideal</label><textarea name="servicio3_cliente"></textarea></div><div class="field"><label>Problema</label><textarea name="servicio3_problema"></textarea></div></div>
+    </div><div class="grid"><div class="field"><label>Servicio principal</label><input name="servicio_principal"></div><div class="field"><label>Servicio más rentable</label><input name="servicio_rentable"></div><div class="field"><label>Servicio que más clientes trae</label><input name="servicio_clientes"></div><div class="field"><label>Servicios que NO potenciar</label><input name="servicios_no_potenciar"></div></div></section>
+
+    <section class="step" data-title="Cliente"><div class="section-head"><span>03</span><h2>Cliente e intención de búsqueda</h2></div><div class="explain">Entender cómo piensa y busca el cliente.</div><div class="grid">
+      <div class="field full"><label>Cliente ideal</label><textarea name="cliente_ideal"></textarea></div><div class="field"><label>Qué busca al inicio</label><textarea name="busqueda_inicial"></textarea></div><div class="field"><label>Qué busca comparando</label><textarea name="busqueda_comparativa"></textarea></div><div class="field"><label>Qué busca antes de contactar</label><textarea name="busqueda_final"></textarea></div><div class="field"><label>Problemas</label><textarea name="problemas_cliente"></textarea></div><div class="field"><label>Motivaciones</label><textarea name="motivaciones"></textarea></div><div class="field"><label>Objeciones</label><textarea name="objeciones"></textarea></div><div class="field"><label>Palabras reales</label><textarea name="palabras_cliente"></textarea></div><div class="field full"><label>Cliente NO deseado</label><textarea name="cliente_no_deseado"></textarea></div></div></section>
+
+    <section class="step" data-title="Competencia"><div class="section-head"><span>04</span><h2>Competencia</h2></div><div class="explain">Analizar mercado y diferenciación.</div><div class="grid">
+      <div class="field"><label>Competidor 1</label><input name="competidor1_nombre"></div><div class="field"><label>Web</label><input name="competidor1_web"></div><div class="field"><label>Qué hace bien</label><textarea name="competidor1_bien"></textarea></div><div class="field"><label>Qué mejorarías</label><textarea name="competidor1_mejora"></textarea></div><div class="field"><label>Competidor 2</label><input name="competidor2_nombre"></div><div class="field"><label>Web</label><input name="competidor2_web"></div><div class="field full"><label>Por qué eligen a la competencia</label><textarea name="porque_competencia"></textarea></div><div class="field full"><label>Ventajas reales</label><textarea name="ventajas_reales"></textarea></div></div></section>
+
+    <section class="step" data-title="Digital"><div class="section-head"><span>05</span><h2>Presencia digital</h2></div><div class="explain">Evaluar situación actual y activos disponibles.</div><div class="grid">
+      <div class="field"><label>Web actual</label><input name="web_actual"></div><div class="field"><label>Leads al mes</label><input name="leads_mes"></div>
+      <div class="field full"><label>Canales actuales</label><div class="pills"><label class="pill"><input type="checkbox" name="canales" value="SEO">SEO</label><label class="pill"><input type="checkbox" name="canales" value="Ads">Ads</label><label class="pill"><input type="checkbox" name="canales" value="Redes">Redes</label><label class="pill"><input type="checkbox" name="canales" value="Referencias">Referencias</label></div></div>
+      <div class="field"><label>Qué funciona bien</label><textarea name="funciona_bien"></textarea></div><div class="field"><label>Qué no funciona</label><textarea name="no_funciona"></textarea></div></div></section>
+
+    <section class="step" data-title="SEO Local"><div class="section-head"><span>06</span><h2>SEO local y alcance</h2></div><div class="explain">Definir zonas y alcance comercial.</div><div class="grid">
+      <div class="field"><label>Dónde quieres posicionarte</label><input name="zona_posicionamiento"></div><div class="field"><label>Tipo de servicio</label><select name="tipo_servicio"><option></option><option>Presencial</option><option>Online</option><option>Ambos</option></select></div><div class="field full"><label>Zonas prioritarias</label><textarea name="zonas_prioritarias"></textarea></div><div class="field full"><label>Zonas que NO quieres captar</label><textarea name="zonas_no"></textarea></div></div></section>
+
+    <section class="step" data-title="Web"><div class="section-head"><span>07</span><h2>Estructura web</h2></div><div class="explain">Definir páginas, objetivos y CTA.</div><div class="grid">
+      <div class="field"><label>Página 1</label><input name="pagina1_nombre"></div><div class="field"><label>Objetivo / CTA</label><textarea name="pagina1_objetivo"></textarea></div><div class="field"><label>Página 2</label><input name="pagina2_nombre"></div><div class="field"><label>Objetivo / CTA</label><textarea name="pagina2_objetivo"></textarea></div><div class="field full"><label>Páginas adicionales</label><textarea name="paginas_adicionales"></textarea></div></div></section>
+
+    <section class="step" data-title="Contenido"><div class="section-head"><span>08</span><h2>Contenido y autoridad</h2></div><div class="explain">Contenido para SEO, GEO y confianza.</div><div class="grid">
+      <div class="field"><label>Preguntas frecuentes</label><textarea name="faq"></textarea></div><div class="field"><label>Temas clave</label><textarea name="temas_clave"></textarea></div><div class="field"><label>Errores comunes</label><textarea name="errores_cliente"></textarea></div><div class="field"><label>Casos de éxito</label><textarea name="casos_exito"></textarea></div><div class="field full"><label>Contenido reutilizable</label><textarea name="contenido_reutilizable"></textarea></div></div></section>
+
+    <section class="step" data-title="GEO / IA"><div class="section-head"><span>09</span><h2>GEO · Visibilidad en IA</h2></div><div class="explain">Preparar la empresa para ser entendida y recomendada por IA.</div><div class="grid">
+      <div class="field full"><label>Cómo debería describirte una IA</label><textarea name="ia_descripcion"></textarea></div><div class="field full"><label>Preguntas donde quieres aparecer</label><textarea name="ia_preguntas"></textarea></div><div class="field"><label>Pruebas de autoridad</label><textarea name="autoridad"></textarea></div><div class="field"><label>Presencia externa</label><textarea name="presencia_externa"></textarea></div><div class="field full"><label>Entidades relacionadas</label><textarea name="entidades"></textarea></div></div></section>
+
+    <section class="step" data-title="Diseño"><div class="section-head"><span>10</span><h2>Diseño y conversión</h2></div><div class="explain">Definir experiencia visual orientada a conversión.</div><div class="grid">
+      <div class="field"><label>Acción principal de la web</label><input name="accion_principal"></div><div class="field"><label>Tipo de web</label><select name="tipo_web"><option></option><option>Directa a conversión</option><option>Corporativa</option><option>Híbrida</option></select></div><div class="field full"><label>Qué necesita ver para confiar</label><textarea name="confianza"></textarea></div><div class="field full"><label>Referencias visuales</label><textarea name="referencias"></textarea></div></div></section>
+
+    <section class="step" data-title="Captación"><div class="section-head"><span>11</span><h2>Captación de leads</h2></div><div class="explain">Definir cómo se generan y cualifican contactos.</div><div class="grid">
+      <div class="field"><label>CTA principal</label><input name="cta_principal"></div><div class="field"><label>Tipo de contacto</label><select name="contacto_preferido"><option></option><option>Formulario</option><option>WhatsApp</option><option>Llamada</option><option>Reunión</option><option>Email</option></select></div><div class="field full"><label>Datos del formulario</label><textarea name="datos_formulario"></textarea></div><div class="field"><label>Lead cualificado</label><textarea name="lead_cualificado"></textarea></div><div class="field"><label>Tiempo de respuesta</label><textarea name="tiempo_respuesta"></textarea></div></div></section>
+
+    <section class="step" data-title="Objetivos"><div class="section-head"><span>12</span><h2>Objetivos y medición</h2></div><div class="explain">Medir resultados y priorizar correctamente.</div><div class="grid">
+      <div class="field"><label>Objetivo principal</label><select name="objetivo_principal"><option></option><option>Más leads</option><option>Más ventas</option><option>Mejor marca</option><option>SEO</option><option>GEO / IA</option></select></div><div class="field"><label>Valor cliente</label><input name="valor_cliente"></div><div class="field"><label>Leads necesarios</label><input name="leads_necesarios"></div><div class="field"><label>Plazo esperado</label><input name="plazo"></div><div class="field full"><label>Resultado excelente en 6 meses</label><textarea name="resultado_excelente"></textarea></div></div></section>
+
+    <section class="step" data-title="Material"><div class="section-head"><span>13</span><h2>Material y operativa</h2></div><div class="explain">Recursos necesarios para ejecutar el proyecto.</div><div class="grid">
+      <div class="field full"><label>Material disponible</label><div class="pills"><label class="pill"><input type="checkbox" name="material" value="Logo">Logo</label><label class="pill"><input type="checkbox" name="material" value="Fotos">Fotos</label><label class="pill"><input type="checkbox" name="material" value="Vídeos">Vídeos</label><label class="pill"><input type="checkbox" name="material" value="Textos">Textos</label><label class="pill"><input type="checkbox" name="material" value="Casos">Casos</label></div></div><div class="field"><label>Publicar resultados reales</label><select name="publicar_resultados"><option></option><option>Sí</option><option>No</option><option>Depende</option></select></div><div class="field"><label>Responsable</label><input name="responsable"></div><div class="field full"><label>Observaciones</label><textarea name="observaciones"></textarea></div></div>
+      <div style="background:var(--soft);border:1px solid var(--line);padding:18px;margin-top:18px"><p style="color:#555;font-size:13px;line-height:1.5;margin-bottom:14px"><strong>Finalizar:</strong> tus respuestas quedan guardadas automáticamente. También puedes descargar una copia JSON.</p><button type="button" onclick="downloadJSON()">Descargar respuestas</button> <button type="button" class="secondary" onclick="window.print()">Guardar PDF</button> <button type="button" class="ghost" onclick="location.reload()">Salir</button></div></section>
+
+    <div class="actions"><button type="button" class="secondary" id="prev">Anterior</button><button type="button" id="next">Siguiente</button></div>
+  </form>
+</main>
+</div>
+<div id="toast" class="toast">Guardado</div>
+
+<script>
+const SUPABASE_URL = "PEGA_AQUI_TU_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "PEGA_AQUI_TU_SUPABASE_ANON_KEY";
+
+/*
+SQL en Supabase:
+
+create table public.briefings (
+  id uuid primary key default gen_random_uuid(),
+  access_code text unique not null,
+  client_name text not null,
+  responses jsonb default '{}'::jsonb,
+  updated_at timestamptz default now()
+);
+
+alter table public.briefings enable row level security;
+
+create policy "public read"
+on public.briefings for select
+using (true);
+
+create policy "public update"
+on public.briefings for update
+using (true)
+with check (true);
+
+insert into public.briefings (access_code, client_name, responses)
+values ('KOOB-2026', 'KOOB Consultores', '{}'::jsonb);
+*/
+
+const sb = SUPABASE_URL.includes("PEGA_AQUI") ? null : supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let cloud = false, activeCode = "", activeClient = "", current = 0, timer = null;
+
+const form = document.getElementById("form");
+const steps = [...document.querySelectorAll(".step")];
+const tabsEl = document.getElementById("tabs");
+const dot = document.getElementById("dot");
+const statusText = document.getElementById("statusText");
+
+steps.forEach((s,i)=>{
+  const b=document.createElement("button"); b.type="button"; b.className="tab"+(i===0?" active":"");
+  b.innerHTML=`<span>${String(i+1).padStart(2,"0")}</span><span>${s.dataset.title}</span>`;
+  b.onclick=()=>go(i); tabsEl.appendChild(b);
+});
+const tabs=[...document.querySelectorAll(".tab")];
+
+document.getElementById("loginBtn").onclick=login;
+document.getElementById("localBtn").onclick=()=>startLocal(document.getElementById("codeInput").value.trim().toUpperCase() || "DEMO", "Modo local");
+document.getElementById("codeInput").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+
+async function login(){
+  const code=document.getElementById("codeInput").value.trim().toUpperCase();
+  if(!code)return;
+  const err=document.getElementById("loginError"); err.style.display="none";
+  if(!sb){startLocal(code,"Configura Supabase");return;}
+  document.getElementById("loginBtn").textContent="Comprobando…";
+  const {data,error}=await sb.from("briefings").select("*").eq("access_code",code).single();
+  document.getElementById("loginBtn").textContent="Acceder";
+  if(error||!data){err.style.display="block";return;}
+  cloud=true; activeCode=data.access_code; activeClient=data.client_name; setData(data.responses||{}); openApp();
+  setSync("ok","Conectado · nube"); if(data.updated_at) document.getElementById("lastSaved").textContent=new Date(data.updated_at).toLocaleString("es-ES");
+}
+
+function startLocal(code,client){cloud=false;activeCode=code;activeClient=client;const raw=localStorage.getItem("ds_"+code);if(raw){try{setData(JSON.parse(raw).data||{})}catch(e){}}openApp();setSync("err","Modo local");}
+function openApp(){document.getElementById("login").style.display="none";document.getElementById("app").style.display="grid";document.getElementById("clientName").textContent=activeClient;document.getElementById("clientCode").textContent=activeCode;render();}
+function setSync(type,text){dot.className="dot "+type;statusText.textContent=text;}
+function getData(){const data={};[...form.elements].filter(e=>e.name).forEach(e=>{if(e.type==="checkbox"){data[e.name]=data[e.name]||[];if(e.checked)data[e.name].push(e.value)}else data[e.name]=e.value});return data;}
+function setData(data){[...form.elements].filter(e=>e.name).forEach(e=>{if(e.type==="checkbox")e.checked=Array.isArray(data[e.name])&&data[e.name].includes(e.value);else if(data[e.name]!==undefined)e.value=data[e.name];});}
+function progress(){const groups={};[...form.elements].filter(e=>e.name&&e.type!=="button").forEach(e=>{if(e.type==="checkbox"){groups[e.name]=groups[e.name]||false;if(e.checked)groups[e.name]=true}else groups[e.name]=e.value.trim().length>0});const keys=Object.keys(groups), pct=Math.round((Object.values(groups).filter(Boolean).length/(keys.length||1))*100);document.getElementById("fill").style.width=pct+"%";document.getElementById("progressText").textContent=pct+"%";steps.forEach((s,i)=>{const f=[...s.querySelectorAll("input,textarea,select")].filter(e=>e.name);tabs[i].classList.toggle("done",f.some(e=>e.type==="checkbox"?e.checked:e.value.trim()))})}
+function render(){steps.forEach((s,i)=>s.classList.toggle("active",i===current));tabs.forEach((t,i)=>t.classList.toggle("active",i===current));document.getElementById("prev").style.visibility=current===0?"hidden":"visible";document.getElementById("next").textContent=current===steps.length-1?"Guardar y descargar":"Siguiente";progress();}
+function go(i){current=Math.max(0,Math.min(steps.length-1,i));queueSave(false);render();window.scrollTo({top:0,behavior:"smooth"});}
+function queueSave(show=false){progress();clearTimeout(timer);timer=setTimeout(()=>save(show),650);}
+async function save(show=false){const data=getData(),now=new Date();if(cloud&&sb){setSync("","Guardando…");const {error}=await sb.from("briefings").update({responses:data,updated_at:now.toISOString()}).eq("access_code",activeCode);if(error){setSync("err","Error al guardar");console.error(error);return;}setSync("ok","Guardado en nube");}else{localStorage.setItem("ds_"+activeCode,JSON.stringify({data,updatedAt:now.toISOString()}));setSync("err","Guardado local");}document.getElementById("lastSaved").textContent=now.toLocaleString("es-ES");if(show)toast();}
+function toast(){const t=document.getElementById("toast");t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1100);}
+form.addEventListener("input",()=>queueSave(false));form.addEventListener("change",()=>queueSave(true));
+document.getElementById("prev").onclick=()=>go(current-1);
+document.getElementById("next").onclick=async()=>{await save(true); if(current===steps.length-1)downloadJSON();else go(current+1);}
+function downloadJSON(){const data=getData();const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`briefing-${(data.empresa||activeCode||"cliente").toLowerCase().replace(/[^a-z0-9]+/gi,"-")}.json`;a.click();URL.revokeObjectURL(a.href);}
+</script>
+</body>
+</html>
