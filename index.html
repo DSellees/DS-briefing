@@ -34,7 +34,6 @@ main{padding:44px 56px 32px}.top{display:flex;justify-content:space-between;gap:
     <input id="codeInput" placeholder="Ej. KOOB-2026" autocomplete="off">
     <div class="login-actions">
       <button id="loginBtn">Acceder</button>
-      <button id="localBtn" class="secondary" type="button">Modo local</button>
     </div>
     <div id="loginError" class="error">Código no encontrado o error de conexión.</div>
   </div>
@@ -117,32 +116,6 @@ main{padding:44px 56px 32px}.top{display:flex;justify-content:space-between;gap:
 const SUPABASE_URL = "https://htkvsgjrmqwljqhaolbs.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_dKwyOu2-EVKxxbllXSaTAw_4pYeUayH";
 
-/*
-SQL en Supabase:
-
-create table public.briefings (
-  id uuid primary key default gen_random_uuid(),
-  access_code text unique not null,
-  client_name text not null,
-  responses jsonb default '{}'::jsonb,
-  updated_at timestamptz default now()
-);
-
-alter table public.briefings enable row level security;
-
-create policy "public read"
-on public.briefings for select
-using (true);
-
-create policy "public update"
-on public.briefings for update
-using (true)
-with check (true);
-
-insert into public.briefings (access_code, client_name, responses)
-values ('KOOB-2026', 'KOOB Consultores', '{}'::jsonb);
-*/
-
 const sb = SUPABASE_URL.includes("PEGA_AQUI") ? null : supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let cloud = false, activeCode = "", activeClient = "", current = 0, timer = null;
 
@@ -160,14 +133,14 @@ steps.forEach((s,i)=>{
 const tabs=[...document.querySelectorAll(".tab")];
 
 document.getElementById("loginBtn").onclick=login;
-document.getElementById("localBtn").onclick=()=>startLocal(document.getElementById("codeInput").value.trim().toUpperCase() || "DEMO", "Modo local");
+// Modo local desactivado: el formulario debe guardar siempre en Supabase.
 document.getElementById("codeInput").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
 
 async function login(){
   const code=document.getElementById("codeInput").value.trim().toUpperCase();
   if(!code)return;
   const err=document.getElementById("loginError"); err.style.display="none";
-  if(!sb){startLocal(code,"Configura Supabase");return;}
+  if(!sb){err.textContent="Supabase no está configurado. Revisa SUPABASE_URL y SUPABASE_ANON_KEY en el HTML."; err.style.display="block"; return;}
   document.getElementById("loginBtn").textContent="Comprobando…";
   const {data,error}=await sb.from("briefings").select("*").eq("access_code",code).single();
   document.getElementById("loginBtn").textContent="Acceder";
@@ -176,7 +149,9 @@ async function login(){
   setSync("ok","Conectado · nube"); if(data.updated_at) document.getElementById("lastSaved").textContent=new Date(data.updated_at).toLocaleString("es-ES");
 }
 
-function startLocal(code,client){cloud=false;activeCode=code;activeClient=client;const raw=localStorage.getItem("ds_"+code);if(raw){try{setData(JSON.parse(raw).data||{})}catch(e){}}openApp();setSync("err","Modo local");}
+function startLocal(){
+  console.warn("Modo local desactivado. El formulario debe conectarse a Supabase.");
+}
 function openApp(){document.getElementById("login").style.display="none";document.getElementById("app").style.display="grid";document.getElementById("clientName").textContent=activeClient;document.getElementById("clientCode").textContent=activeCode;render();}
 function setSync(type,text){dot.className="dot "+type;statusText.textContent=text;}
 function getData(){const data={};[...form.elements].filter(e=>e.name).forEach(e=>{if(e.type==="checkbox"){data[e.name]=data[e.name]||[];if(e.checked)data[e.name].push(e.value)}else data[e.name]=e.value});return data;}
@@ -185,7 +160,7 @@ function progress(){const groups={};[...form.elements].filter(e=>e.name&&e.type!
 function render(){steps.forEach((s,i)=>s.classList.toggle("active",i===current));tabs.forEach((t,i)=>t.classList.toggle("active",i===current));document.getElementById("prev").style.visibility=current===0?"hidden":"visible";document.getElementById("next").textContent=current===steps.length-1?"Guardar y descargar":"Siguiente";progress();}
 function go(i){current=Math.max(0,Math.min(steps.length-1,i));queueSave(false);render();window.scrollTo({top:0,behavior:"smooth"});}
 function queueSave(show=false){progress();clearTimeout(timer);timer=setTimeout(()=>save(show),650);}
-async function save(show=false){const data=getData(),now=new Date();if(cloud&&sb){setSync("","Guardando…");const {error}=await sb.from("briefings").update({responses:data,updated_at:now.toISOString()}).eq("access_code",activeCode);if(error){setSync("err","Error al guardar");console.error(error);return;}setSync("ok","Guardado en nube");}else{localStorage.setItem("ds_"+activeCode,JSON.stringify({data,updatedAt:now.toISOString()}));setSync("err","Guardado local");}document.getElementById("lastSaved").textContent=now.toLocaleString("es-ES");if(show)toast();}
+async function save(show=false){const data=getData(),now=new Date();if(!cloud||!sb){setSync("err","No conectado a Supabase");console.error("Guardado bloqueado: Supabase no está conectado.");return;}setSync("","Guardando…");const {error}=await sb.from("briefings").update({responses:data,updated_at:now.toISOString()}).eq("access_code",activeCode);if(error){setSync("err","Error al guardar");console.error(error);return;}setSync("ok","Guardado en nube");document.getElementById("lastSaved").textContent=now.toLocaleString("es-ES");if(show)toast();}
 function toast(){const t=document.getElementById("toast");t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1100);}
 form.addEventListener("input",()=>queueSave(false));form.addEventListener("change",()=>queueSave(true));
 document.getElementById("prev").onclick=()=>go(current-1);
