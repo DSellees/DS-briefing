@@ -5,24 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>DS · Briefing Estratégico</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<style>
-:root{--black:#0A0A0A;--dark:#1A1A1A;--gray:#8C8C8C;--line:#E6E6E6;--soft:#F6F6F6;--white:#fff;--ok:#0f7a3b;--err:#b42318}
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#c8c8c8;color:var(--dark)}
-.login{min-height:100vh;background:var(--black);display:grid;place-items:center;padding:24px;color:#fff}.login-card{width:min(520px,100%);border:1px solid #262626;padding:38px;background:#0f0f0f}
-.kicker{font-family:monospace;font-size:10px;color:var(--gray);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}.login h1,.side-title,.top h1{font-family:Georgia,serif;line-height:1.05}.login h1{font-size:44px;margin-bottom:14px}.login h1 em,.side-title em{color:var(--gray)}
-.login p{color:var(--gray);font-size:14px;line-height:1.6;margin-bottom:22px}.login label{font-size:12px;font-weight:700;margin-bottom:8px;display:block}.login input{width:100%;padding:14px;border:0;font-size:15px}
-.login-actions{display:flex;gap:10px;margin-top:14px}.error{display:none;color:#ffb4ab;font-size:12px;margin-top:12px}
-.app{display:none;width:min(1120px,calc(100% - 32px));margin:32px auto;background:#fff;min-height:calc(100vh - 64px);grid-template-columns:310px 1fr;box-shadow:0 24px 80px rgba(0,0,0,.18)}
-aside{background:var(--black);color:#fff;padding:40px 32px;position:sticky;top:0;height:100vh;overflow:auto}.brand{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #242424;padding-bottom:26px;margin-bottom:40px}.logo{font-family:Georgia,serif;font-size:34px}.ref{font-family:monospace;font-size:10px;color:var(--gray);text-align:right;line-height:1.6}
-.side-title{font-size:36px;margin-bottom:18px}.side-desc{color:var(--gray);font-size:13px;line-height:1.6}.progress{margin:28px 0}.progress-top{display:flex;justify-content:space-between;font-family:monospace;font-size:10px;color:var(--gray);margin-bottom:8px}.bar{height:6px;background:#242424}.fill{height:100%;width:0;background:#fff;transition:.2s}
-.tabs{display:flex;flex-direction:column;gap:6px}.tab{border:1px solid #242424;background:transparent;color:var(--gray);text-align:left;padding:12px;display:grid;grid-template-columns:32px 1fr;gap:8px;cursor:pointer}.tab.active{background:#fff;color:#000;border-color:#fff}.tab.done:not(.active){color:#fff}.tab span:first-child{font-family:monospace;font-size:10px}
-main{padding:44px 56px 32px}.top{display:flex;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:30px}.top h1{font-size:34px}.top p{margin-top:10px;color:#555;font-size:14px;line-height:1.6;max-width:640px}.status{min-width:240px;background:var(--soft);border:1px solid var(--line);padding:14px;font-size:12px;color:#555}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gray);margin-right:7px}.dot.ok{background:var(--ok)}.dot.err{background:var(--err)}
-.step{display:none}.step.active{display:block}.section-head{background:#0A0A0A;color:#fff;padding:14px 16px;display:flex;gap:12px;align-items:center;margin-bottom:18px}.section-head span{font-family:monospace;font-size:10px;color:var(--gray)}.section-head h2{font-size:11px;text-transform:uppercase;letter-spacing:2px}.explain{background:var(--soft);border-left:3px solid #000;padding:16px;margin-bottom:24px;color:#555;font-size:13px;line-height:1.6}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.field{margin-bottom:18px}.full{grid-column:1/-1}label{display:block;font-size:12px;font-weight:700;margin-bottom:8px}input,textarea,select{width:100%;border:1px solid #D9D9D9;padding:12px;font:inherit;font-size:14px;outline:none}textarea{min-height:92px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:#000;box-shadow:0 0 0 3px rgba(0,0,0,.08)}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:var(--soft);border:1px solid var(--line);padding:16px}.card h3{font-family:Georgia,serif;font-size:19px;margin-bottom:12px}.pills{display:flex;flex-wrap:wrap;gap:8px}.pill{border:1px solid #D9D9D9;padding:8px 12px;font-size:12px;cursor:pointer}.pill input{display:none}.pill:has(input:checked){background:#000;color:#fff;border-color:#000}
-.actions{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:24px;margin-top:28px}button{border:1px solid #000;background:#000;color:#fff;padding:12px 20px;font-weight:700;cursor:pointer}button.secondary{background:#fff;color:#000}button.ghost{background:transparent;color:#555;border-color:#ccc}.toast{position:fixed;right:24px;bottom:24px;background:#000;color:#fff;padding:12px 16px;font-size:12px;opacity:0;transform:translateY(8px);transition:.2s}.toast.show{opacity:1;transform:translateY(0)}
-@media(max-width:900px){.app{grid-template-columns:1fr;width:100%;margin:0}aside{position:relative;height:auto}.top{flex-direction:column}.grid,.cards{grid-template-columns:1fr}main{padding:28px 22px}}
-</style>
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <div id="login" class="login">
@@ -31,7 +14,7 @@ main{padding:44px 56px 32px}.top{display:flex;justify-content:space-between;gap:
     <h1>Briefing<br><em>estratégico</em></h1>
     <p>Introduce tu código de acceso. Puedes completar el formulario poco a poco; todo se guarda automáticamente.</p>
     <label>Código de acceso</label>
-    <input id="codeInput" placeholder="Ej. KOOB-2026" autocomplete="off">
+    <input id="codeInput" placeholder="Introduce tu código aquí" autocomplete="off">
     <div class="login-actions">
       <button id="loginBtn">Acceder</button>
     </div>
@@ -51,59 +34,390 @@ main{padding:44px 56px 32px}.top{display:flex;justify-content:space-between;gap:
 
 <main>
   <div class="top">
-    <div><h1>Briefing Estratégico</h1><p>SEO, GEO, diseño web y conversión. Este formulario nos ayuda a entender el negocio con precisión.</p></div>
+    <div><h1>Briefing Estratégico</h1><p>Este formulario nos ayuda a entender tu negocio de servicios, tus clientes y tus objetivos para construir una web más clara, mejor posicionada y orientada a generar contactos reales.</p></div>
     <div class="status"><strong><span id="dot" class="dot"></span><span id="statusText">Conectando…</span></strong><br>Cliente: <span id="clientName">—</span><br>Código: <span id="clientCode">—</span><br>Última actualización: <span id="lastSaved">—</span></div>
   </div>
 
   <form id="form">
-    <section class="step active" data-title="Marca"><div class="section-head"><span>01</span><h2>Posicionamiento y marca</h2></div><div class="explain">Entender quién eres, qué vendes y cómo deberías percibirte.</div><div class="grid">
-      <div class="field"><label>Nombre empresa</label><input name="empresa"></div><div class="field"><label>Sector / especialidad</label><input name="sector"></div>
-      <div class="field full"><label>Problema principal que resolvéis</label><textarea name="problema_principal"></textarea></div>
-      <div class="field full"><label>Diferenciación real</label><textarea name="diferenciacion"></textarea></div>
-      <div class="field full"><label>Por qué deberían elegiros</label><textarea name="por_que_elegir"></textarea></div>
-      <div class="field"><label>Percepción actual</label><textarea name="percepcion_actual"></textarea></div><div class="field"><label>Percepción deseada</label><textarea name="percepcion_deseada"></textarea></div>
-      <div class="field full"><label>Mensaje clave de la web</label><textarea name="mensaje_clave"></textarea></div></div></section>
+    <section class="step active" data-title="Marca"><div class="section-head"><span>01</span><h2>Identidad y posicionamiento</h2></div><div class="explain">Esta sección nos ayuda a entender qué servicio ofrecéis, qué necesidad resolvéis y cómo debería percibiros un cliente antes de contactar. Responde con ejemplos reales y evita frases demasiado genéricas.</div><div class="quality-example"><strong>Respuesta poco útil:</strong> <span class="bad">“calidad, confianza y profesionalidad”.</span><br><strong>Respuesta más útil:</strong> <span class="good">“Ayudamos a un tipo concreto de cliente a resolver una necesidad concreta mediante una forma de trabajo clara, especializada y diferenciada”.</span></div><div class="grid">
+      <div class="field"><label>Nombre de la empresa</label><input name="empresa" placeholder="Nombre comercial o marca principal"></div><div class="field"><label>Sector o especialidad</label><input name="sector" placeholder="Ej. salud, restauración, inmobiliaria, formación, consultoría, servicios profesionales..."></div>
+      <div class="field full"><label>Necesidad principal que resolvéis</label><p class="hint">Explica qué situación quiere mejorar el cliente antes de contrataros. Puede ser un problema, una necesidad o un objetivo.</p><textarea name="problema_principal" placeholder="Ej. Nuestros clientes quieren conseguir más contactos, mejorar su imagen, ahorrar tiempo, vender más, organizar mejor su proceso o encontrar una solución fiable."></textarea></div>
+      <div class="field full"><label>Qué os hace diferentes</label><p class="hint">Evita respuestas genéricas. Piensa en vuestra forma de trabajar, especialización, experiencia, trato, resultados, rapidez, garantías o enfoque.</p><textarea name="diferenciacion" placeholder="Ej. Servicio más personalizado, especialización en un tipo de cliente, método propio, acompañamiento cercano, resultados demostrables o experiencia específica."></textarea></div>
+      <div class="field full"><label>Por qué deberían elegiros</label><p class="hint">Piensa en los motivos reales por los que un cliente confiaría en vosotros antes que en otra opción.</p><textarea name="por_que_elegir" placeholder="Ej. Por la experiencia, cercanía, especialización, claridad del proceso, resultados anteriores, confianza o facilidad para trabajar con vosotros."></textarea></div>
+      <div class="field"><label>Cómo os perciben ahora</label><p class="hint">Cómo crees que os ven actualmente clientes, contactos o mercado.</p><textarea name="percepcion_actual" placeholder="Ej. Cercanos, técnicos, tradicionales, poco visibles online, premium, rápidos, especializados..."></textarea></div><div class="field"><label>Cómo queréis ser percibidos</label><p class="hint">Qué imagen debería transmitir la nueva web.</p><textarea name="percepcion_deseada" placeholder="Ej. Más profesional, más premium, más cercana, más moderna, más experta o más orientada a resultados."></textarea></div>
+      <div class="field full"><label>Mensaje principal de la web</label><p class="hint">La idea que una persona debería entender en los primeros segundos. No tiene que ser el titular definitivo.</p><textarea name="mensaje_clave" placeholder="Ej. Ayudamos a [tipo de cliente] a conseguir [resultado deseado] con [servicio o forma de trabajo diferencial]."></textarea></div></div></section>
 
-    <section class="step" data-title="Servicios"><div class="section-head"><span>02</span><h2>Servicios y prioridad comercial</h2></div><div class="explain">Definir qué servicios debemos potenciar para generar negocio.</div><div class="cards">
-      <div class="card"><h3>Servicio 1</h3><div class="field"><label>Nombre</label><input name="servicio1_nombre"></div><div class="field"><label>Prioridad</label><select name="servicio1_prioridad"><option></option><option>Alta</option><option>Media</option><option>Baja</option></select></div><div class="field"><label>Rentabilidad</label><select name="servicio1_rentabilidad"><option></option><option>Alta</option><option>Media</option><option>Baja</option></select></div><div class="field"><label>Cliente ideal</label><textarea name="servicio1_cliente"></textarea></div><div class="field"><label>Problema</label><textarea name="servicio1_problema"></textarea></div></div>
-      <div class="card"><h3>Servicio 2</h3><div class="field"><label>Nombre</label><input name="servicio2_nombre"></div><div class="field"><label>Prioridad</label><select name="servicio2_prioridad"><option></option><option>Alta</option><option>Media</option><option>Baja</option></select></div><div class="field"><label>Rentabilidad</label><select name="servicio2_rentabilidad"><option></option><option>Alta</option><option>Media</option><option>Baja</option></select></div><div class="field"><label>Cliente ideal</label><textarea name="servicio2_cliente"></textarea></div><div class="field"><label>Problema</label><textarea name="servicio2_problema"></textarea></div></div>
-      <div class="card"><h3>Servicio 3</h3><div class="field"><label>Nombre</label><input name="servicio3_nombre"></div><div class="field"><label>Prioridad</label><select name="servicio3_prioridad"><option></option><option>Alta</option><option>Media</option><option>Baja</option></select></div><div class="field"><label>Rentabilidad</label><select name="servicio3_rentabilidad"><option></option><option>Alta</option><option>Media</option><option>Baja</option></select></div><div class="field"><label>Cliente ideal</label><textarea name="servicio3_cliente"></textarea></div><div class="field"><label>Problema</label><textarea name="servicio3_problema"></textarea></div></div>
-    </div><div class="grid"><div class="field"><label>Servicio principal</label><input name="servicio_principal"></div><div class="field"><label>Servicio más rentable</label><input name="servicio_rentable"></div><div class="field"><label>Servicio que más clientes trae</label><input name="servicio_clientes"></div><div class="field"><label>Servicios que NO potenciar</label><input name="servicios_no_potenciar"></div></div></section>
+    <section class="step" data-title="Servicios"><div class="section-head"><span>02</span><h2>Servicios y prioridades comerciales</h2></div><div class="explain">Añade los servicios principales de la empresa. Esta información nos ayudará a decidir qué páginas crear, qué mensajes destacar y qué servicios conviene potenciar a nivel comercial, SEO y conversión.</div>
+      <div id="servicesList" class="cards services-list"></div>
+      <button type="button" class="secondary add-service-btn" onclick="addServiceCard()">+ Añadir servicio</button>
+      <div class="grid" style="margin-top:18px"><div class="field"><label>Servicio principal a potenciar</label><p class="hint">El servicio o línea de negocio que más interesa destacar en la web.</p><input name="servicio_principal" placeholder="Ej. Servicio estrella, solución principal o servicio con más potencial comercial."></div><div class="field"><label>Servicio más rentable</label><p class="hint">El que deja más margen, genera más valor o interesa vender más aunque no sea el más solicitado.</p><input name="servicio_rentable" placeholder="Ej. Servicio premium, paquete completo, suscripción, acompañamiento mensual..."></div><div class="field"><label>Servicio que más clientes trae</label><p class="hint">El servicio por el que más suelen contactar actualmente.</p><input name="servicio_clientes" placeholder="Ej. El más conocido, el más buscado o el que más solicitudes genera."></div><div class="field"><label>Servicios que NO potenciar</label><p class="hint">Servicios que no interesa destacar porque tienen poco margen, no encajan o atraen leads poco cualificados.</p><input name="servicios_no_potenciar" placeholder="Ej. Servicios puntuales, bajo ticket, urgencias no rentables o trabajos fuera de foco."></div></div></section>
 
-    <section class="step" data-title="Cliente"><div class="section-head"><span>03</span><h2>Cliente e intención de búsqueda</h2></div><div class="explain">Entender cómo piensa y busca el cliente.</div><div class="grid">
-      <div class="field full"><label>Cliente ideal</label><textarea name="cliente_ideal"></textarea></div><div class="field"><label>Qué busca al inicio</label><textarea name="busqueda_inicial"></textarea></div><div class="field"><label>Qué busca comparando</label><textarea name="busqueda_comparativa"></textarea></div><div class="field"><label>Qué busca antes de contactar</label><textarea name="busqueda_final"></textarea></div><div class="field"><label>Problemas</label><textarea name="problemas_cliente"></textarea></div><div class="field"><label>Motivaciones</label><textarea name="motivaciones"></textarea></div><div class="field"><label>Objeciones</label><textarea name="objeciones"></textarea></div><div class="field"><label>Palabras reales</label><textarea name="palabras_cliente"></textarea></div><div class="field full"><label>Cliente NO deseado</label><textarea name="cliente_no_deseado"></textarea></div></div></section>
+    <section class="step" data-title="Cliente"><div class="section-head"><span>03</span><h2>Cliente ideal y decisión de compra</h2></div><div class="explain">Queremos entender quién es el cliente ideal, qué necesita, cómo busca soluciones y qué lenguaje utiliza antes de contactar. Esta información nos ayuda a definir mensajes, keywords, estructura web y contenido.</div><div class="quality-example"><strong>Ejemplo:</strong> un cliente puede no buscar el nombre técnico del servicio, sino frases como “necesito vender más”, “busco una solución cerca de mí”, “cómo mejorar mi imagen” o “precio de...”.</div><div class="grid">
+      <div class="field full"><label>Cliente ideal</label><p class="hint">Describe el tipo de cliente que más interesa atraer: perfil, situación, necesidades, presupuesto, ubicación o forma de contratar.</p><textarea name="cliente_ideal" placeholder="Ej. Personas, empresas o perfiles que valoran el servicio, tienen una necesidad clara y encajan con la forma de trabajar del negocio."></textarea></div><div class="field"><label>Qué necesita cuando empieza a buscar ayuda</label><p class="hint">Qué problema, deseo o situación suele tener antes de saber exactamente a quién contratar.</p><textarea name="busqueda_inicial" placeholder="Ej. resolver un problema, mejorar una situación, encontrar un profesional de confianza, comparar alternativas..."></textarea></div><div class="field"><label>Qué compara antes de decidir</label><p class="hint">Qué suele revisar entre varias opciones antes de contactar.</p><textarea name="busqueda_comparativa" placeholder="Ej. experiencia, precio, reseñas, cercanía, especialización, rapidez, trato o garantías..."></textarea></div><div class="field"><label>Qué le hace contactar finalmente</label><p class="hint">Qué señal, necesidad o momento hace que dé el paso.</p><textarea name="busqueda_final" placeholder="Ej. urgencia, confianza, claridad, facilidad de contacto, buena reputación, explicación clara o recomendación..."></textarea></div><div class="field"><label>Problemas principales</label><p class="hint">Qué frustraciones, miedos o necesidades tiene antes de contactar.</p><textarea name="problemas_cliente" placeholder="Ej. falta de tiempo, poca confianza, poca visibilidad, urgencia, dudas, malas experiencias anteriores..."></textarea></div><div class="field"><label>Motivaciones para contratar</label><p class="hint">Qué le impulsa a actuar ahora y no más adelante.</p><textarea name="motivaciones" placeholder="Ej. mejorar resultados, ahorrar tiempo, sentirse más seguro, resolver una urgencia, crecer, verse mejor, cumplir un plazo..."></textarea></div><div class="field"><label>Objeciones o dudas frecuentes</label><p class="hint">Motivos por los que puede retrasar la decisión o no contactar.</p><textarea name="objeciones" placeholder="Ej. precio, falta de confianza, no entender el proceso, miedo a no obtener resultados, dudas sobre plazos..."></textarea></div><div class="field"><label>Palabras reales que usa</label><p class="hint">Expresiones del cliente, aunque no sean técnicas. Esto ayuda mucho al SEO y al copy.</p><textarea name="palabras_cliente" placeholder="Ej. “quiero algo rápido”, “no sé por dónde empezar”, “necesito ayuda”, “busco algo de confianza”..."></textarea></div><div class="field full"><label>Cliente que NO quieres atraer</label><p class="hint">Define perfiles que no encajan para evitar mensajes que atraigan contactos poco rentables.</p><textarea name="cliente_no_deseado" placeholder="Ej. Clientes que solo buscan precio bajo, no valoran el proceso, no tienen presupuesto o piden servicios fuera de foco."></textarea></div></div></section>
 
-    <section class="step" data-title="Competencia"><div class="section-head"><span>04</span><h2>Competencia</h2></div><div class="explain">Analizar mercado y diferenciación.</div><div class="grid">
-      <div class="field"><label>Competidor 1</label><input name="competidor1_nombre"></div><div class="field"><label>Web</label><input name="competidor1_web"></div><div class="field"><label>Qué hace bien</label><textarea name="competidor1_bien"></textarea></div><div class="field"><label>Qué mejorarías</label><textarea name="competidor1_mejora"></textarea></div><div class="field"><label>Competidor 2</label><input name="competidor2_nombre"></div><div class="field"><label>Web</label><input name="competidor2_web"></div><div class="field full"><label>Por qué eligen a la competencia</label><textarea name="porque_competencia"></textarea></div><div class="field full"><label>Ventajas reales</label><textarea name="ventajas_reales"></textarea></div></div></section>
+    <section class="step" data-title="Competencia"><div class="section-head"><span>04</span><h2>Competencia</h2></div><div class="explain">Analizamos competidores directos y referentes del mercado para detectar oportunidades de diferenciación, mensajes más fuertes y posibles mejoras de diseño, contenido y posicionamiento.</div><div class="grid">
+      <div class="field"><label>Competidor 1</label><p class="hint">Nombre de una empresa, marca o profesional que compite por clientes similares.</p><input name="competidor1_nombre" placeholder="Ej. Nombre del competidor o referente"></div><div class="field"><label>Web</label><p class="hint">URL si la conoces.</p><input name="competidor1_web" placeholder="https://..."></div><div class="field"><label>Qué hace bien</label><p class="hint">Diseño, mensajes, posicionamiento, confianza, contenido, reseñas, oferta, etc.</p><textarea name="competidor1_bien" placeholder="Ej. Explica bien sus servicios, tiene buenas reseñas, transmite confianza, aparece bien en Google..."></textarea></div><div class="field"><label>Qué mejorarías</label><p class="hint">Qué ves débil, confuso, poco atractivo o poco diferenciador.</p><textarea name="competidor1_mejora" placeholder="Ej. Web poco clara, mensajes genéricos, poca información, diseño desactualizado, mala conversión..."></textarea></div><div class="field"><label>Competidor 2</label><p class="hint">Puedes incluir otro competidor directo o una web de referencia.</p><input name="competidor2_nombre" placeholder="Ej. Nombre del competidor o referente"></div><div class="field"><label>Web</label><p class="hint">URL si la conoces.</p><input name="competidor2_web" placeholder="https://..."></div><div class="field"><label>Qué hace bien</label><p class="hint">Diseño, mensajes, posicionamiento, confianza, contenido, reseñas, oferta, etc.</p><textarea name="competidor2_bien" placeholder="Ej. Tiene una propuesta clara, transmite confianza y facilita el contacto desde el inicio..."></textarea></div><div class="field"><label>Qué mejorarías</label><p class="hint">Qué ves débil, confuso, poco atractivo o poco diferenciador.</p><textarea name="competidor2_mejora" placeholder="Ej. Mensajes poco concretos, estructura confusa, falta de pruebas de confianza o CTA poco visibles..."></textarea></div><div class="field full"><button type="button" class="secondary add-dynamic-btn" onclick="addCompetitorRow()">+ Añadir competidor</button></div><div id="competitorsList" class="competitors-extra"></div><div class="field full"><label>Por qué crees que eligen a la competencia</label><p class="hint">Razones reales por las que alguien podría escoger otra opción.</p><textarea name="porque_competencia" placeholder="Ej. Más visibilidad, mejores precios, más confianza, más reseñas, mejor ubicación, marca más conocida..."></textarea></div><div class="field full"><label>Ventajas reales frente al mercado</label><p class="hint">Qué argumentos propios podríamos destacar para competir mejor.</p><textarea name="ventajas_reales" placeholder="Ej. Mejor trato, más especialización, proceso más claro, más experiencia, mejor resultado, más cercanía..."></textarea></div></div></section>
 
-    <section class="step" data-title="Digital"><div class="section-head"><span>05</span><h2>Presencia digital</h2></div><div class="explain">Evaluar situación actual y activos disponibles.</div><div class="grid">
-      <div class="field"><label>Web actual</label><input name="web_actual"></div><div class="field"><label>Leads al mes</label><input name="leads_mes"></div>
-      <div class="field full"><label>Canales actuales</label><div class="pills"><label class="pill"><input type="checkbox" name="canales" value="SEO">SEO</label><label class="pill"><input type="checkbox" name="canales" value="Ads">Ads</label><label class="pill"><input type="checkbox" name="canales" value="Redes">Redes</label><label class="pill"><input type="checkbox" name="canales" value="Referencias">Referencias</label></div></div>
-      <div class="field"><label>Qué funciona bien</label><textarea name="funciona_bien"></textarea></div><div class="field"><label>Qué no funciona</label><textarea name="no_funciona"></textarea></div></div></section>
+    <section class="step" data-title="Digital">
+      <div class="section-head"><span>05</span><h2>Presencia digital</h2></div>
+      <div class="explain">Evaluamos la situación actual del negocio online para entender qué funciona, qué no y desde dónde partimos. Esto nos ayudará a tomar decisiones de diseño, SEO y captación.</div>
 
-    <section class="step" data-title="SEO Local"><div class="section-head"><span>06</span><h2>SEO local y alcance</h2></div><div class="explain">Definir zonas y alcance comercial.</div><div class="grid">
-      <div class="field"><label>Dónde quieres posicionarte</label><input name="zona_posicionamiento"></div><div class="field"><label>Tipo de servicio</label><select name="tipo_servicio"><option></option><option>Presencial</option><option>Online</option><option>Ambos</option></select></div><div class="field full"><label>Zonas prioritarias</label><textarea name="zonas_prioritarias"></textarea></div><div class="field full"><label>Zonas que NO quieres captar</label><textarea name="zonas_no"></textarea></div></div></section>
+      <div class="grid">
 
-    <section class="step" data-title="Web"><div class="section-head"><span>07</span><h2>Estructura web</h2></div><div class="explain">Definir páginas, objetivos y CTA.</div><div class="grid">
-      <div class="field"><label>Página 1</label><input name="pagina1_nombre"></div><div class="field"><label>Objetivo / CTA</label><textarea name="pagina1_objetivo"></textarea></div><div class="field"><label>Página 2</label><input name="pagina2_nombre"></div><div class="field"><label>Objetivo / CTA</label><textarea name="pagina2_objetivo"></textarea></div><div class="field full"><label>Páginas adicionales</label><textarea name="paginas_adicionales"></textarea></div></div></section>
+        <!-- BLOQUE 1: WEB -->
+        <div class="field">
+          <label>Web actual</label>
+          <p class="hint">URL de la web actual si existe.</p>
+          <input name="web_actual" placeholder="https://...">
+        </div>
 
-    <section class="step" data-title="Contenido"><div class="section-head"><span>08</span><h2>Contenido y autoridad</h2></div><div class="explain">Contenido para SEO, GEO y confianza.</div><div class="grid">
-      <div class="field"><label>Preguntas frecuentes</label><textarea name="faq"></textarea></div><div class="field"><label>Temas clave</label><textarea name="temas_clave"></textarea></div><div class="field"><label>Errores comunes</label><textarea name="errores_cliente"></textarea></div><div class="field"><label>Casos de éxito</label><textarea name="casos_exito"></textarea></div><div class="field full"><label>Contenido reutilizable</label><textarea name="contenido_reutilizable"></textarea></div></div></section>
+        <div class="field">
+          <label>Objetivo con el que se creó la web</label>
+          <p class="hint">¿Para qué se hizo originalmente?</p>
+          <input name="objetivo_web_actual" placeholder="Ej. Tener presencia online, mostrar servicios, captar contactos, vender...">
+        </div>
 
-    <section class="step" data-title="GEO / IA"><div class="section-head"><span>09</span><h2>GEO · Visibilidad en IA</h2></div><div class="explain">Preparar la empresa para ser entendida y recomendada por IA.</div><div class="grid">
-      <div class="field full"><label>Cómo debería describirte una IA</label><textarea name="ia_descripcion"></textarea></div><div class="field full"><label>Preguntas donde quieres aparecer</label><textarea name="ia_preguntas"></textarea></div><div class="field"><label>Pruebas de autoridad</label><textarea name="autoridad"></textarea></div><div class="field"><label>Presencia externa</label><textarea name="presencia_externa"></textarea></div><div class="field full"><label>Entidades relacionadas</label><textarea name="entidades"></textarea></div></div></section>
+        <div class="field full">
+          <label>Principal problema de la web actual</label>
+          <p class="hint">Qué crees que no está funcionando ahora mismo.</p>
+          <textarea name="problema_web_actual" placeholder="Ej. No genera contactos, no transmite confianza, no se entiende, diseño antiguo, no aparece en Google..."></textarea>
+        </div>
 
-    <section class="step" data-title="Diseño"><div class="section-head"><span>10</span><h2>Diseño y conversión</h2></div><div class="explain">Definir experiencia visual orientada a conversión.</div><div class="grid">
-      <div class="field"><label>Acción principal de la web</label><input name="accion_principal"></div><div class="field"><label>Tipo de web</label><select name="tipo_web"><option></option><option>Directa a conversión</option><option>Corporativa</option><option>Híbrida</option></select></div><div class="field full"><label>Qué necesita ver para confiar</label><textarea name="confianza"></textarea></div><div class="field full"><label>Referencias visuales</label><textarea name="referencias"></textarea></div></div></section>
+        <!-- BLOQUE 2: CAPTACIÓN -->
+        <div class="field">
+          <label>Contactos o solicitudes mensuales aproximadas</label>
+          <p class="hint">Si no se mide, puedes poner una estimación.</p>
+          <input name="leads_mes" placeholder="Ej. 5-10 contactos / No medido / Depende del mes">
+        </div>
 
-    <section class="step" data-title="Captación"><div class="section-head"><span>11</span><h2>Captación de leads</h2></div><div class="explain">Definir cómo se generan y cualifican contactos.</div><div class="grid">
-      <div class="field"><label>CTA principal</label><input name="cta_principal"></div><div class="field"><label>Tipo de contacto</label><select name="contacto_preferido"><option></option><option>Formulario</option><option>WhatsApp</option><option>Llamada</option><option>Reunión</option><option>Email</option></select></div><div class="field full"><label>Datos del formulario</label><textarea name="datos_formulario"></textarea></div><div class="field"><label>Lead cualificado</label><textarea name="lead_cualificado"></textarea></div><div class="field"><label>Tiempo de respuesta</label><textarea name="tiempo_respuesta"></textarea></div></div></section>
+        <div class="field">
+          <label>Canal que más clientes o contactos genera</label>
+          <p class="hint">El canal que realmente trae negocio.</p>
+          <input name="canal_principal" placeholder="Ej. Recomendaciones, Google, Instagram, Ads, boca a boca...">
+        </div>
 
-    <section class="step" data-title="Objetivos"><div class="section-head"><span>12</span><h2>Objetivos y medición</h2></div><div class="explain">Medir resultados y priorizar correctamente.</div><div class="grid">
-      <div class="field"><label>Objetivo principal</label><select name="objetivo_principal"><option></option><option>Más leads</option><option>Más ventas</option><option>Mejor marca</option><option>SEO</option><option>GEO / IA</option></select></div><div class="field"><label>Valor cliente</label><input name="valor_cliente"></div><div class="field"><label>Leads necesarios</label><input name="leads_necesarios"></div><div class="field"><label>Plazo esperado</label><input name="plazo"></div><div class="field full"><label>Resultado excelente en 6 meses</label><textarea name="resultado_excelente"></textarea></div></div></section>
+        <div class="field full">
+          <label>Canales de captación y visibilidad actuales</label>
+          <p class="hint">Selecciona por dónde llegan hoy las visitas, contactos o clientes. No son solo redes sociales: pueden ser Google, anuncios, recomendaciones, directorios, email, etc.</p>
+          <div class="pills">
+            <label class="pill"><input type="checkbox" name="canales" value="Google / SEO">Google / SEO</label>
+            <label class="pill"><input type="checkbox" name="canales" value="Google Business Profile">Google Business Profile</label>
+            <label class="pill"><input type="checkbox" name="canales" value="Anuncios / Ads">Anuncios / Ads</label>
+            <label class="pill"><input type="checkbox" name="canales" value="Redes sociales">Redes sociales</label>
+            <label class="pill"><input type="checkbox" name="canales" value="Recomendaciones">Recomendaciones</label>
+            <label class="pill"><input type="checkbox" name="canales" value="Email / newsletter">Email / newsletter</label>
+            <label class="pill"><input type="checkbox" name="canales" value="Directorios / marketplaces">Directorios / marketplaces</label>
+          </div>
+        </div>
 
-    <section class="step" data-title="Material"><div class="section-head"><span>13</span><h2>Material y operativa</h2></div><div class="explain">Recursos necesarios para ejecutar el proyecto.</div><div class="grid">
-      <div class="field full"><label>Material disponible</label><div class="pills"><label class="pill"><input type="checkbox" name="material" value="Logo">Logo</label><label class="pill"><input type="checkbox" name="material" value="Fotos">Fotos</label><label class="pill"><input type="checkbox" name="material" value="Vídeos">Vídeos</label><label class="pill"><input type="checkbox" name="material" value="Textos">Textos</label><label class="pill"><input type="checkbox" name="material" value="Casos">Casos</label></div></div><div class="field"><label>Publicar resultados reales</label><select name="publicar_resultados"><option></option><option>Sí</option><option>No</option><option>Depende</option></select></div><div class="field"><label>Responsable</label><input name="responsable"></div><div class="field full"><label>Observaciones</label><textarea name="observaciones"></textarea></div></div>
+        <!-- BLOQUE 3: ACTIVOS DIGITALES -->
+        <div class="field full">
+          <label>Perfiles, canales y enlaces actuales</label>
+          <p class="hint">Añade cada plataforma con su enlace. Puedes incluir web, Google Business Profile, Instagram, TikTok, LinkedIn, YouTube, directorios, marketplaces u otros perfiles.</p>
+          <div id="profilesList" class="profile-list"></div>
+          <button type="button" class="secondary add-profile-btn" onclick="addProfileRow()">+ Añadir perfil o canal</button>
+        </div>
+
+        <div class="field full">
+          <label>Herramientas de medición actuales</label>
+          <p class="hint">Añade las herramientas que se usan para medir visitas, leads, ventas o rendimiento. Puedes indicar si están configuradas, pendientes o si no hay acceso.</p>
+          <div id="toolsList" class="dynamic-list"></div>
+          <button type="button" class="secondary add-dynamic-btn" onclick="addToolRow()">+ Añadir herramienta</button>
+        </div>
+
+        <div class="field full">
+          <label>Accesos disponibles</label>
+          <p class="hint">Añade los accesos que se pueden facilitar para trabajar en la web, dominio, hosting, analítica, redes o plataformas externas.</p>
+          <div id="accessList" class="dynamic-list"></div>
+          <button type="button" class="secondary add-dynamic-btn" onclick="addAccessRow()">+ Añadir acceso</button>
+        </div>
+
+        <!-- BLOQUE 4: DIAGNÓSTICO -->
+        <div class="field">
+          <label>Qué funciona bien</label>
+          <p class="hint">Canales o acciones que ya dan resultado.</p>
+          <textarea name="funciona_bien" placeholder="Ej. Recomendaciones, Instagram, llamadas, SEO local..."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Qué no funciona o debería mejorar</label>
+          <p class="hint">Problemas actuales.</p>
+          <textarea name="no_funciona" placeholder="Ej. Web no convierte, no hay estrategia, poca visibilidad..."></textarea>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="step" data-title="Zonas">
+      <div class="section-head"><span>06</span><h2>Ubicación y zonas de servicio</h2></div>
+      <div class="explain">Definimos dónde presta servicio el negocio, qué zonas interesan más y cómo suelen buscar los clientes cuando necesitan una solución cerca. Esta información nos ayudará a trabajar el posicionamiento local sin que tengas que saber de SEO.</div>
+
+      <div class="grid">
+
+        <!-- UBICACIÓN -->
+        <div class="field">
+          <label>Ubicación principal del negocio</label>
+          <p class="hint">Ciudad o zona desde donde operas o tienes presencia física.</p>
+          <input name="ubicacion_principal" placeholder="Ej. Ciudad, zona o punto base del negocio">
+        </div>
+
+        <div class="field">
+          <label>Tipo de servicio</label>
+          <p class="hint">Define si trabajas presencialmente, online o ambos.</p>
+          <select name="tipo_servicio">
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option>Presencial</option>
+            <option>Online</option>
+            <option>Ambos</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label>Zonas donde prestas servicio</label>
+          <p class="hint">Áreas donde puedes trabajar o atender clientes.</p>
+          <textarea name="zonas_servicio" placeholder="Ej. Varias ciudades, provincias, barrios o zonas donde operas"></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Zonas prioritarias</label>
+          <p class="hint">Dónde te interesa captar más clientes por volumen, valor o estrategia.</p>
+          <textarea name="zonas_prioritarias" placeholder="Ej. Zonas con mayor demanda, mejor cliente o mayor rentabilidad"></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Zonas que NO quieres captar</label>
+          <p class="hint">Zonas que no te interesan por logística, tipo de cliente o rentabilidad.</p>
+          <textarea name="zonas_no" placeholder="Ej. Zonas fuera de cobertura, con mala rentabilidad o complicadas de gestionar"></textarea>
+        </div>
+
+        <!-- BÚSQUEDAS -->
+        <div class="field full">
+          <label>¿Cómo crees que te buscaría alguien de tu zona?</label>
+          <p class="hint">Escribe frases naturales que podría usar un cliente para encontrar un servicio como el tuyo.</p>
+          <textarea name="busquedas_locales" placeholder="Ej. ayuda para resolver una necesidad concreta cerca, profesional de confianza en mi zona, servicio especializado en una ciudad o barrio"></textarea>
+        </div>
+
+        <!-- GOOGLE BUSINESS -->
+        <div class="field">
+          <label>¿Tienes ficha de Google Business Profile?</label>
+          <p class="hint">Es clave para aparecer en Google Maps.</p>
+          <select name="gbp">
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option>Sí</option>
+            <option>No</option>
+            <option>No lo sé</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Enlace a Google Business Profile</label>
+          <p class="hint">Si existe, añade el enlace.</p>
+          <input name="gbp_link" placeholder="https://...">
+        </div>
+
+        <div class="field">
+          <label>Número aproximado de reseñas</label>
+          <p class="hint">Si no lo sabes exacto, pon una estimación.</p>
+          <input name="gbp_reviews" placeholder="Ej. 10, 50, 100+">
+        </div>
+
+        <div class="field">
+          <label>Valoración media</label>
+          <p class="hint">Puntuación aproximada (sobre 5).</p>
+          <input name="gbp_rating" placeholder="Ej. 4.2 / 4.8">
+        </div>
+
+        <!-- COMPETENCIA LOCAL -->
+        <div class="field full">
+          <label>Competidores que aparecen en Google Maps</label>
+          <p class="hint">Empresas que ves cuando buscas tu servicio en tu zona.</p>
+          <textarea name="competencia_local" placeholder="Ej. Negocios similares que aparecen en el mapa o primeras posiciones"></textarea>
+        </div>
+
+        <!-- INTENCIÓN -->
+        <div class="field full">
+          <label>¿Qué valora más el cliente local?</label>
+          <p class="hint">Qué hace que elija una opción cerca: precio, cercanía, rapidez, confianza, reseñas, especialización...</p>
+          <textarea name="valor_cliente_local" placeholder="Ej. Facilidad de contacto, proximidad, confianza, rapidez o reputación"></textarea>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="step" data-title="Web">
+      <div class="section-head"><span>07</span><h2>Experiencia del cliente en la web</h2></div>
+      <div class="explain">Esta sección nos ayuda a entender cómo decide tu cliente cuando llega a una web. No necesitas saber de diseño ni de SEO: responde pensando en qué necesita ver, entender y sentir una persona antes de contactar o comprar.</div>
+      <div class="grid">
+        <div class="field full">
+          <label>Cuando alguien llega por primera vez, ¿qué necesita entender para seguir interesado?</label>
+          <p class="hint">Piensa en la primera impresión: qué hacéis, para quién, qué problema resolvéis o por qué debería quedarse.</p>
+          <textarea name="web_primera_impresion" placeholder="Ej. Que entienda rápido qué ofrecemos, que vea que encaja con su necesidad y que perciba confianza desde el inicio."></textarea>
+        </div>
+
+        <div class="field full">
+          <label>¿Qué información necesita sí o sí antes de decidir?</label>
+          <p class="hint">Información que normalmente el cliente pregunta antes de avanzar.</p>
+          <textarea name="web_informacion_clave" placeholder="Ej. Qué incluye el servicio, cómo funciona, precios orientativos, tiempos, garantías, condiciones, ubicación o próximos pasos."></textarea>
+        </div>
+
+        <div class="field">
+          <label>¿Qué necesita entender para confiar?</label>
+          <p class="hint">Información o argumentos que necesita comprender para sentirse seguro.</p>
+          <textarea name="web_confianza" placeholder="Ej. Reseñas, casos reales, fotos, equipo, experiencia, certificaciones, resultados, antes/después o marcas con las que trabajáis."></textarea>
+        </div>
+
+        <div class="field">
+          <label>¿Qué dudas o miedos hacen que el cliente no avance?</label>
+          <p class="hint">Frenos habituales antes de contactar, comprar o reservar.</p>
+          <textarea name="web_bloqueos" placeholder="Ej. Precio, falta de confianza, no entender el proceso, miedo a equivocarse, dudas sobre resultados o malas experiencias anteriores."></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Cuando compara varias opciones, ¿en qué se fija?</label>
+          <p class="hint">Qué criterios usa para elegir entre vosotros y la competencia.</p>
+          <textarea name="web_comparacion" placeholder="Ej. Precio, cercanía, rapidez, trato, experiencia, especialización, reseñas, claridad, garantías o facilidad de contacto."></textarea>
+        </div>
+
+        <div class="field">
+          <label>¿Qué debería hacer una persona después de ver la web?</label>
+          <p class="hint">La acción ideal: contactar, reservar, pedir presupuesto, llamar, comprar o solicitar información.</p>
+          <input name="web_accion_ideal" placeholder="Ej. Pedir presupuesto, reservar una cita, escribir por WhatsApp, llamar o enviar formulario.">
+        </div>
+
+        <div class="field">
+          <label>¿Prefieres una web sencilla o más completa?</label>
+          <p class="hint">Solo como orientación. Si no lo tienes claro, marca “No lo sé”.</p>
+          <select name="estructura_web_tipo">
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option>Algo sencillo y directo</option>
+            <option>Algo más completo para explicar bien el negocio</option>
+            <option>Varias páginas por servicios o zonas</option>
+            <option>No lo sé</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label>¿Qué servicios o temas deberían tener más protagonismo?</label>
+          <p class="hint">Esto nos ayuda a ordenar la web y decidir qué mensajes deben estar más visibles.</p>
+          <textarea name="web_prioridades" placeholder="Ej. Servicio principal, servicio más rentable, solución más demandada, zona prioritaria o tema que más dudas genera."></textarea>
+        </div>
+
+        <div class="field full">
+          <label>¿Qué te gustaría que encontraran en Google sobre tu negocio?</label>
+          <p class="hint">Piensa en servicios, zonas o problemas por los que te gustaría que te encontraran.</p>
+          <textarea name="web_estrategia_seo" placeholder="Ej. Servicio principal + ciudad, problema que resolvemos, servicio más buscado, preguntas frecuentes o zonas donde trabajamos."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="step" data-title="Contenido">
+      <div class="section-head"><span>08</span><h2>Contenido y confianza</h2></div>
+      <div class="explain">Esta sección no busca que definas contenidos técnicos. Solo necesitamos entender qué dudas tienen tus clientes, qué información les ayuda a confiar y qué argumentos usas normalmente para explicar tu negocio.</div>
+      <div class="grid">
+        <div class="field full">
+          <label>Preguntas que suelen hacer tus clientes</label>
+          <p class="hint">Piensa en dudas reales antes de comprar, reservar, pedir presupuesto o contactar.</p>
+          <textarea name="faq" placeholder="Ej. cuánto cuesta, cuánto tarda, qué incluye, cómo funciona, qué pasa después, qué opción me conviene..."></textarea>
+        </div>
+        <div class="field">
+          <label>Información que siempre tienes que explicar</label>
+          <p class="hint">Temas que el cliente necesita entender para valorar bien tu servicio.</p>
+          <textarea name="temas_clave" placeholder="Ej. proceso de trabajo, diferencias entre opciones, beneficios, garantías, requisitos, seguimiento, plazos..."></textarea>
+        </div>
+        <div class="field">
+          <label>Errores o confusiones habituales del cliente</label>
+          <p class="hint">Cosas que el cliente suele entender mal o decisiones que toma sin suficiente información.</p>
+          <textarea name="errores_cliente" placeholder="Ej. elegir solo por precio, pensar que todo es igual, esperar demasiado, no saber qué necesita realmente..."></textarea>
+        </div>
+        <div class="field">
+          <label>Pruebas que generan confianza</label>
+          <p class="hint">Elementos que ayudan a demostrar que sois una opción fiable.</p>
+          <textarea name="casos_exito" placeholder="Ej. casos reales, reseñas, testimonios, antes/después, clientes, fotos, resultados, años de experiencia..."></textarea>
+        </div>
+        <div class="field">
+          <label>Argumentos que suelen convencer</label>
+          <p class="hint">Frases, explicaciones o razones que normalmente ayudan a cerrar una venta o generar confianza.</p>
+          <textarea name="argumentos_contenido" placeholder="Ej. trato cercano, rapidez, experiencia, especialización, facilidad, garantía, acompañamiento, resultados demostrables..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="step" data-title="IA / Recomendaciones">
+      <div class="section-head"><span>09</span><h2>IA y recomendaciones</h2></div>
+      <div class="explain">Esta sección nos ayuda a entender cómo debería ser explicado tu negocio cuando alguien busca recomendaciones o compara opciones online. No necesitas saber de inteligencia artificial: responde como si explicaras tu empresa a una persona que no te conoce.</div>
+      <div class="grid">
+        <div class="field full">
+          <label>Cómo explicarías tu negocio en una frase clara</label>
+          <p class="hint">Una descripción sencilla: qué hacéis, para quién y qué resultado ayudáis a conseguir.</p>
+          <textarea name="ia_descripcion" placeholder="Ej. Somos una empresa de [sector] que ayuda a [tipo de cliente] a conseguir [resultado] mediante [servicio o forma de trabajo]."></textarea>
+        </div>
+        <div class="field full">
+          <label>Cuándo te gustaría que alguien te recomendara</label>
+          <p class="hint">Situaciones en las que tu empresa sería una buena opción para un cliente.</p>
+          <textarea name="ia_preguntas" placeholder="Ej. cuando alguien necesita una solución fiable, busca un profesional cercano, compara opciones o quiere resolver un problema concreto."></textarea>
+        </div>
+        <div class="field">
+          <label>Qué demuestra que sois una buena opción</label>
+          <p class="hint">Pruebas reales de experiencia, confianza o calidad.</p>
+          <textarea name="autoridad" placeholder="Ej. años de experiencia, reseñas, clientes, resultados, certificaciones, equipo, metodología, casos reales..."></textarea>
+        </div>
+        <div class="field">
+          <label>Dónde aparece o se menciona tu negocio</label>
+          <p class="hint">Lugares externos donde alguien puede encontrar información sobre vosotros.</p>
+          <textarea name="presencia_externa" placeholder="Ej. Google Business, redes sociales, directorios, medios, asociaciones, colaboraciones, marketplaces..."></textarea>
+        </div>
+        <div class="field full">
+          <label>Palabras o ideas con las que deberíais estar asociados</label>
+          <p class="hint">Conceptos que deberían venir a la mente cuando alguien piense en vuestro negocio.</p>
+          <textarea name="entidades" placeholder="Ej. ciudad, zona, sector, especialidad, tipo de cliente, servicio principal, valores, problema que resolvéis..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="step" data-title="Diseño"><div class="section-head"><span>10</span><h2>Estilo, confianza y percepción</h2></div><div class="explain">Esta sección nos ayuda a definir cómo debería sentirse la web visualmente. No buscamos que describas un diseño técnico, sino qué imagen debe transmitir el negocio para generar confianza.</div><div class="grid">
+      <div class="field"><label>¿Qué te gustaría que hiciera el usuario en la web?</label><p class="hint">Acción principal que debería hacer una persona interesada.</p><input name="accion_principal" placeholder="Ej. contactar, llamar, pedir presupuesto, reservar una cita o solicitar información"></div>
+      <div class="field">
+        <label>¿Qué sensación debería transmitir la web?</label>
+        <p class="hint">Elige la sensación que mejor encaja con tu negocio y tus clientes.</p>
+        <select name="tipo_web">
+          <option value="" disabled selected>Selecciona una opción</option>
+          <option>Muy directa y enfocada a conseguir contactos</option>
+          <option>Más informativa y de imagen de marca</option>
+          <option>Equilibrada (información + captación)</option>
+          <option>No lo sé</option>
+        </select>
+      </div>
+      <div class="field full"><label>Sensaciones que debería transmitir la web</label><p class="hint">Selecciona las sensaciones clave que quieres que perciba un cliente al navegar.</p><div class="pills"><label class="pill"><input type="checkbox" name="sensaciones_web" value="Profesional">Profesional</label><label class="pill"><input type="checkbox" name="sensaciones_web" value="Cercana">Cercana</label><label class="pill"><input type="checkbox" name="sensaciones_web" value="Premium">Premium</label><label class="pill"><input type="checkbox" name="sensaciones_web" value="Moderna">Moderna</label><label class="pill"><input type="checkbox" name="sensaciones_web" value="Seria">Seria</label><label class="pill"><input type="checkbox" name="sensaciones_web" value="Humana">Humana</label><label class="pill"><input type="checkbox" name="sensaciones_web" value="Exclusiva">Exclusiva</label><label class="pill"><input type="checkbox" name="sensaciones_web" value="Técnica">Técnica</label></div></div>
+      <div class="field full"><label>Paleta de color</label><p class="hint">Añade los colores que te gustaría usar en la web. Puedes seleccionarlos con el color picker o escribir el código HEX.</p><div id="colorsList" class="dynamic-list"></div><button type="button" class="secondary add-dynamic-btn" onclick="addColorRow()">+ Añadir color</button></div>
+      <div class="field full"><label>Qué necesita ver para confiar</label><p class="hint">Elementos visuales que transmiten confianza a primera vista (sin leer mucho texto).</p><textarea name="confianza" placeholder="Ej. fotos reales, reseñas, equipo, casos, instalaciones, procesos, certificaciones, resultados o ejemplos de trabajos"></textarea></div>
+      <div class="field full"><label>Referencias visuales</label><p class="hint">Webs, marcas o estilos que te gustan. No tienen que ser de tu sector.</p><textarea name="referencias" placeholder="Ej. enlaces de webs, estilos que te transmiten confianza, diseños que te parecen claros, modernos o profesionales"></textarea></div>
+    </div></section>
+
+    <section class="step" data-title="Captación"><div class="section-head"><span>11</span><h2>Contacto y captación</h2></div><div class="explain">Definimos cómo deberían contactar los clientes interesados y qué información necesitas recibir para saber si ese contacto encaja con tu negocio.</div><div class="grid">
+      <div class="field"><label>Texto ideal del botón principal</label><p class="hint">El texto de la acción principal de la web.</p><input name="cta_principal" placeholder="Ej. Solicitar presupuesto, reservar cita, pedir información, hablar con un asesor"></div><div class="field"><label>Cómo prefieres que contacten contigo</label><p class="hint">Canal más cómodo o eficaz para gestionar nuevos contactos.</p><select name="contacto_preferido"><option value="" disabled selected>Selecciona una opción</option><option>Formulario</option><option>WhatsApp</option><option>Llamada</option><option>Reunión</option><option>Email</option></select></div><div class="field full"><label>Qué datos necesitas pedir al cliente</label><p class="hint">Información mínima para responder bien sin hacer el formulario demasiado largo.</p><textarea name="datos_formulario" placeholder="Ej. nombre, teléfono, email, servicio de interés, zona, presupuesto aproximado, urgencia o mensaje"></textarea></div><div class="field"><label>Qué sería un buen contacto para ti</label><p class="hint">Describe cuándo un lead merece atención comercial.</p><textarea name="lead_cualificado" placeholder="Ej. Tiene una necesidad clara, encaja con nuestros servicios, está en una zona válida y tiene capacidad de decisión"></textarea></div><div class="field"><label>Tiempo ideal de respuesta</label><p class="hint">Cuánto tardáis o deberíais tardar en responder.</p><textarea name="tiempo_respuesta" placeholder="Ej. el mismo día, menos de 24 horas, respuesta inmediata por WhatsApp o en horario laboral"></textarea></div></div></section>
+
+    <section class="step" data-title="Objetivos"><div class="section-head"><span>12</span><h2>Objetivos y resultados</h2></div><div class="explain">Definimos qué significaría que la nueva web funciona. Esto nos permite priorizar diseño, contenido, posicionamiento y captación según objetivos reales de negocio.</div><div class="grid">
+      <div class="field">
+        <label>¿Qué quieres conseguir con la web?</label>
+        <p class="hint">Elige el objetivo principal de esta etapa.</p>
+        <select name="objetivo_principal">
+          <option value="" disabled selected>Selecciona una opción</option>
+          <option>Conseguir más contactos</option>
+          <option>Vender más servicios</option>
+          <option>Mejorar la imagen de la empresa</option>
+          <option>Aparecer más en Google</option>
+          <option>Generar más confianza</option>
+          <option>Organizar mejor la información</option>
+        </select>
+      </div>
+      <div class="field"><label>Valor aproximado de un cliente</label><p class="hint">Ayuda a entender cuánto vale cada contacto conseguido.</p><input name="valor_cliente" placeholder="Ej. ticket medio, valor mensual, rango aproximado o valor de un cliente recurrente"></div>
+      <div class="field"><label>Contactos necesarios al mes</label><p class="hint">Cuántos contactos cualificados harían que la web fuese rentable.</p><input name="leads_necesarios" placeholder="Ej. 5 contactos buenos al mes, 10 solicitudes, 3 clientes nuevos"></div>
+      <div class="field"><label>Plazo esperado</label><p class="hint">Horizonte razonable para valorar resultados.</p><input name="plazo" placeholder="Ej. 3 meses, 6 meses, 12 meses o crecimiento progresivo"></div>
+      <div class="field full"><label>Resultado excelente en 6 meses</label><p class="hint">Describe una situación concreta que considerarías un éxito.</p><textarea name="resultado_excelente" placeholder="Ej. recibir contactos cualificados cada mes, mejorar la percepción de marca, aparecer mejor en Google o vender más un servicio prioritario"></textarea></div>
+    </div></section>
+
+    <section class="step" data-title="Material"><div class="section-head"><span>13</span><h2>Material y operativa</h2></div><div class="explain">Recopilamos los recursos necesarios para ejecutar el proyecto sin bloqueos: identidad visual, imágenes, textos, casos, accesos y personas responsables de validar.</div><div class="grid">
+      <div class="field full"><label>Material disponible</label><p class="hint">Selecciona todo lo que ya tienes y podría utilizarse en la web.</p><div class="pills"><label class="pill"><input type="checkbox" name="material" value="Logo">Logo</label><label class="pill"><input type="checkbox" name="material" value="Fotos">Fotos</label><label class="pill"><input type="checkbox" name="material" value="Vídeos">Vídeos</label><label class="pill"><input type="checkbox" name="material" value="Textos">Textos</label><label class="pill"><input type="checkbox" name="material" value="Casos">Casos</label></div></div><div class="field full"><label>Material que falta crear</label><p class="hint">Indica qué recursos todavía no existen y habrá que preparar para poder lanzar la web.</p><textarea name="material_falta_crear" placeholder="Ej. sesión de fotos, textos por servicio, vídeos explicativos, casos documentados, testimonios o identidad visual"></textarea></div><div class="field"><label>¿Se pueden publicar resultados, casos o testimonios reales?</label><p class="hint">Indica si podemos usar pruebas reales de confianza.</p><select name="publicar_resultados"><option value="" disabled selected>Selecciona una opción</option><option>Sí</option><option>No</option><option>Depende</option></select></div><div class="field"><label>Persona responsable de validar</label><p class="hint">Quién aprobará textos, diseño o decisiones importantes.</p><input name="responsable" placeholder="Nombre, cargo o persona de contacto"></div><div class="field full"><label>Observaciones adicionales</label><p class="hint">Cualquier información importante que no haya encajado en secciones anteriores.</p><textarea name="observaciones" placeholder="Ej. fechas límite, preferencias, restricciones legales, tono de marca, materiales pendientes o datos importantes"></textarea></div></div>
       <div style="background:var(--soft);border:1px solid var(--line);padding:18px;margin-top:18px"><p style="color:#555;font-size:13px;line-height:1.5;margin-bottom:14px"><strong>Finalizar:</strong> tus respuestas quedan guardadas automáticamente. También puedes descargar una copia JSON.</p><button type="button" onclick="downloadJSON()">Descargar respuestas</button> <button type="button" class="secondary" onclick="window.print()">Guardar PDF</button> <button type="button" class="ghost" onclick="location.reload()">Salir</button></div></section>
 
     <div class="actions"><button type="button" class="secondary" id="prev">Anterior</button><button type="button" id="next">Siguiente</button></div>
@@ -112,60 +426,11 @@ main{padding:44px 56px 32px}.top{display:flex;justify-content:space-between;gap:
 </div>
 <div id="toast" class="toast">Guardado</div>
 
-<script>
-const SUPABASE_URL = "https://htkvsgjrmqwljqhaolbs.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_dKwyOu2-EVKxxbllXSaTAw_4pYeUayH";
 
-const sb = SUPABASE_URL.includes("PEGA_AQUI") ? null : supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-let cloud = false, activeCode = "", activeClient = "", current = 0, timer = null;
-
-const form = document.getElementById("form");
-const steps = [...document.querySelectorAll(".step")];
-const tabsEl = document.getElementById("tabs");
-const dot = document.getElementById("dot");
-const statusText = document.getElementById("statusText");
-
-steps.forEach((s,i)=>{
-  const b=document.createElement("button"); b.type="button"; b.className="tab"+(i===0?" active":"");
-  b.innerHTML=`<span>${String(i+1).padStart(2,"0")}</span><span>${s.dataset.title}</span>`;
-  b.onclick=()=>go(i); tabsEl.appendChild(b);
-});
-const tabs=[...document.querySelectorAll(".tab")];
-
-document.getElementById("loginBtn").onclick=login;
-// Modo local desactivado: el formulario debe guardar siempre en Supabase.
-document.getElementById("codeInput").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
-
-async function login(){
-  const code=document.getElementById("codeInput").value.trim().toUpperCase();
-  if(!code)return;
-  const err=document.getElementById("loginError"); err.style.display="none";
-  if(!sb){err.textContent="Supabase no está configurado. Revisa SUPABASE_URL y SUPABASE_ANON_KEY en el HTML."; err.style.display="block"; return;}
-  document.getElementById("loginBtn").textContent="Comprobando…";
-  const {data,error}=await sb.from("briefings").select("*").eq("access_code",code).single();
-  document.getElementById("loginBtn").textContent="Acceder";
-  if(error||!data){err.style.display="block";return;}
-  cloud=true; activeCode=data.access_code; activeClient=data.client_name; setData(data.responses||{}); openApp();
-  setSync("ok","Conectado · nube"); if(data.updated_at) document.getElementById("lastSaved").textContent=new Date(data.updated_at).toLocaleString("es-ES");
-}
-
-function startLocal(){
-  console.warn("Modo local desactivado. El formulario debe conectarse a Supabase.");
-}
-function openApp(){document.getElementById("login").style.display="none";document.getElementById("app").style.display="grid";document.getElementById("clientName").textContent=activeClient;document.getElementById("clientCode").textContent=activeCode;render();}
-function setSync(type,text){dot.className="dot "+type;statusText.textContent=text;}
-function getData(){const data={};[...form.elements].filter(e=>e.name).forEach(e=>{if(e.type==="checkbox"){data[e.name]=data[e.name]||[];if(e.checked)data[e.name].push(e.value)}else data[e.name]=e.value});return data;}
-function setData(data){[...form.elements].filter(e=>e.name).forEach(e=>{if(e.type==="checkbox")e.checked=Array.isArray(data[e.name])&&data[e.name].includes(e.value);else if(data[e.name]!==undefined)e.value=data[e.name];});}
-function progress(){const groups={};[...form.elements].filter(e=>e.name&&e.type!=="button").forEach(e=>{if(e.type==="checkbox"){groups[e.name]=groups[e.name]||false;if(e.checked)groups[e.name]=true}else groups[e.name]=e.value.trim().length>0});const keys=Object.keys(groups), pct=Math.round((Object.values(groups).filter(Boolean).length/(keys.length||1))*100);document.getElementById("fill").style.width=pct+"%";document.getElementById("progressText").textContent=pct+"%";steps.forEach((s,i)=>{const f=[...s.querySelectorAll("input,textarea,select")].filter(e=>e.name);tabs[i].classList.toggle("done",f.some(e=>e.type==="checkbox"?e.checked:e.value.trim()))})}
-function render(){steps.forEach((s,i)=>s.classList.toggle("active",i===current));tabs.forEach((t,i)=>t.classList.toggle("active",i===current));document.getElementById("prev").style.visibility=current===0?"hidden":"visible";document.getElementById("next").textContent=current===steps.length-1?"Guardar y descargar":"Siguiente";progress();}
-function go(i){current=Math.max(0,Math.min(steps.length-1,i));queueSave(false);render();window.scrollTo({top:0,behavior:"smooth"});}
-function queueSave(show=false){progress();clearTimeout(timer);timer=setTimeout(()=>save(show),650);}
-async function save(show=false){const data=getData(),now=new Date();if(!cloud||!sb){setSync("err","No conectado a Supabase");console.error("Guardado bloqueado: Supabase no está conectado.");return;}setSync("","Guardando…");const {error}=await sb.from("briefings").update({responses:data,updated_at:now.toISOString()}).eq("access_code",activeCode);if(error){setSync("err","Error al guardar");console.error(error);return;}setSync("ok","Guardado en nube");document.getElementById("lastSaved").textContent=now.toLocaleString("es-ES");if(show)toast();}
-function toast(){const t=document.getElementById("toast");t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1100);}
-form.addEventListener("input",()=>queueSave(false));form.addEventListener("change",()=>queueSave(true));
-document.getElementById("prev").onclick=()=>go(current-1);
-document.getElementById("next").onclick=async()=>{await save(true); if(current===steps.length-1)downloadJSON();else go(current+1);}
-function downloadJSON(){const data=getData();const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`briefing-${(data.empresa||activeCode||"cliente").toLowerCase().replace(/[^a-z0-9]+/gi,"-")}.json`;a.click();URL.revokeObjectURL(a.href);}
-</script>
+<script src="data/content.js"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase.js"></script>
+<script src="js/services.js"></script>
+<script src="js/form.js"></script>
 </body>
 </html>
